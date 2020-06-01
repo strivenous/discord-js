@@ -5,57 +5,40 @@ var discordusertoken = 'NzE2NjYxNTA1MzA2Nzg3ODkw.XtPEXg.YP7zzVZNpm1N3646I27-x47b
 const NetworkSpeed = require('network-speed');
 const testNetworkSpeed = new NetworkSpeed();
 
+/**************************************************************************************************/
+// network-speed async funcs
 
-
-
-var netSpeed;
-netSpeed = {
-    dwl: {
-        value: ""
+getNetworkDownloadSpeed();
+ 
+async function getNetworkDownloadSpeed() {
+  const baseUrl = 'http://eu.httpbin.org/stream-bytes/50000000';
+  const fileSizeInBytes = 50000000;
+  const speed = await testNetworkSpeed.checkDownloadSpeed(baseUrl, fileSizeInBytes);
+  console.log('someone ran a check' + speed);
+}
+ 
+getNetworkUploadSpeed();
+ 
+async function getNetworkUploadSpeed() {
+  const options = {
+    hostname: 'www.google.com',
+    port: 80,
+    path: '/net-speed/50000000', // can't do with use strict enabled
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
     },
-
-    upl: {
-        value: ""
-    },
-
-    uplTarget: {
-        value: ""
-    }
-}
-getNetwDwlSpeed();
-
-netSpeed.uplTarget = 'www.google.com'; // html net upload speed target
-async function getNetwDwlSpeed() { // download speed
-
-    const baseURL = 'http://eu.httpbin.org/stream-bytes/50000000'
-    const fileSizeInBytes = 50000000
-    netSpeed.dwl = await testNetworkSpeed.checkDownloadSpeed(baseUrl, fileSizeInBytes);
-
-    
-}
-getNetUplSpeed();
-
-async function getNetUplSpeed() {
-
-    const options = {
-        hostname: netSpeed.uplTarget,
-        port: 80,
-        path: 'net-speed\50000000',
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-
-        },
-
-    };
-
-    const fileSizeInBytes = 50000000
-    netSpeed.upl = await testNetworkSpeed.checkUploadSpeed(options, fileSizeInBytes);
-
+  };
+  const fileSizeInBytes = 2000000
+  const speed = await testNetworkSpeed.checkUploadSpeed(options, fileSizeInBytes);
+  console.log('someone ran a check' + speed);
 }
 
+// network-speed async funcs
+/**************************************************************************************************/
 
 const prefix = 'elitism.'
+
 client.on('ready', () => {
     console.log('ready.');
   });
@@ -93,11 +76,10 @@ client.on('message', message => {
 
 client.on('message', message => {
     if (message.content === prefix + 'speedtest') {
-        message.channel.send('checking');
-        getNetUplSpeed();
-        message.channel.send(netSpeed.upl + ' value');
-        getNetwDwlSpeed();
-        message.channel.send(netSpeed.dwl + ' value');
+        message.channel.send('work in progress');
+        /* 
+        @TODO cross over with network-speed funcs 
+        */
 
     }
 });
