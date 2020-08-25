@@ -1,6 +1,6 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
-var discordusertoken = 'NzE2NjYxNTA1MzA2Nzg3ODkw.XtPEXg.YP7zzVZNpm1N3646I27-x47bVSU'
+var discordusertoken = '.XtPEXg.YP7zzVZNpm1N3646I27-x47bVSU'
 
 const NetworkSpeed = require('network-speed');
 const testNetworkSpeed = new NetworkSpeed();
